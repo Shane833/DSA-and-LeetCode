@@ -26,5 +26,4 @@ def canConstruct(ransomNote, magazine):
             if r_dict[x] > m_dict[x]:
                 return False
 
-
     return True
