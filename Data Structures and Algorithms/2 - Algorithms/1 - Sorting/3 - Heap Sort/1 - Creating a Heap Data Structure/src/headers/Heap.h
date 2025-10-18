@@ -14,7 +14,7 @@
 
 // Constructing the heap - Since we must use the space efficiently therefore we prefer to
 // always maintain a complete binary tree, where we keep filling the tree from the left most
-// side, also in doing we maintain the structure of the tree but the rules of the heap maybe
+// side, also in doing so we maintain the structure of the tree but the rules of the heap maybe
 // violated as the new child might dominate (greater for max heap or smaller in value for min heap than) its parent
 // Therefore we must place it at its right place in the heirarchy after inserting the element
 // and this will be done using the bubble up function
