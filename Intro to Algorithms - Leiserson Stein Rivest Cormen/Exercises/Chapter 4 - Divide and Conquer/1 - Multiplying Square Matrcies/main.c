@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include "profile.h"
 
-#define N 4
+#define N 128
 
 void matrix_multiply_iterative(size_t n, int A[n][n], int B[n][n], int C[n][n]){
     for(int i = 0;i < n;i++){
@@ -19,46 +20,41 @@ void matrix_multiply_recursive(size_t n, int *A, int *B, int *C){
     }
 
     // Divide
-    int *a11 = A, *a12 = &A[0 + n/2 * n], \
-    *a21 = &A[n/2 + 0 * n], *a22 = &A[n/2 + n/2 * n];
-    int *b11 = B, *b12 = &B[0 + n/2 * n], \
-    *b21 = &B[n/2 + 0 * n], *b22 = &B[n/2 + n/2 * n];
-    int *c11 = C, *c12 = &C[0 + n/2 * n], \
-    *c21 = &C[n/2 + 0 * n], *c22 = &C[n/2 + n/2 * n];
-    
-    printf("N : %d\n", n);
-    printf("A11 : %d %p\n", *a11,a11);
-    printf("A12 : %d %p\n", *a12,a12);
-    printf("A21 : %d %p\n", *a21,a21);
-    printf("A22 : %d %p\n", *a22,a22);
-    
+    int *a11 = A, *a12 = &A[0 * N + n/2], \
+    *a21 = &A[n/2 * N + 0], *a22 = &A[n/2 * N + n/2];
+    int *b11 = B, *b12 = &B[0 * N + n/2], \
+    *b21 = &B[n/2 * N + 0], *b22 = &B[n/2 * N + n/2];
+    int *c11 = C, *c12 = &C[0 * N + n/2], \
+    *c21 = &C[n/2 * N + 0], *c22 = &C[n/2 * N + n/2];
+
     // Conquer
     matrix_multiply_recursive(n/2, a11, b11, c11);
-    /*
     matrix_multiply_recursive(n/2, a11, b12, c12);
     matrix_multiply_recursive(n/2, a21, b11, c21);
     matrix_multiply_recursive(n/2, a21, b12, c22);
-    // The first four calls initializes C = A.B
+    // The first four calls initializes C = 0 + A.B
     // The second half will do C = C + A.B
     // so that the value is correct
     matrix_multiply_recursive(n/2, a12, b21, c11);
     matrix_multiply_recursive(n/2, a12, b22, c12);
     matrix_multiply_recursive(n/2, a22, b21, c21);
     matrix_multiply_recursive(n/2, a22, b22, c22);
-    */
 }
 
 void divide(size_t n, int *A){
     int *a11 = A;
-    int *a12 = &A[0 + n/2 * n];
-    int *a21 = &A[n/2 + 0 * n];
-    int *a22 = &A[n/2 + n/2 * n];
+    int *a12 = &A[0 * N + (n/2)];
+    int *a21 = &A[(n/2) * N + 0];
+    int *a22 = &A[(n/2) * N + (n/2)];
+    // Since the actual rows in the array won't change 
+    // Hence when we try to reference the elements in n/2 * n/2 size array
+    // to move from one row to the another we are not moving by n/2 elements
+    // instead we move by the actual n elements
 
-    if(a12 == a21) printf("Pointing to the same element\n");
-    printf("A11 : %d\n", *a11);
-    printf("A12 : %d\n", *a12);
-    printf("A21 : %d\n", *a21);
-    printf("A22 : %d\n", *a22);
+    printf("A11 : %d 0x%x\n", *a11,a11);
+    printf("A12 : %d 0x%x\n", *a12,a12);
+    printf("A21 : %d 0x%x\n", *a21,a21);
+    printf("A22 : %d 0x%x\n", *a22,a22);
 }
 
 void fillArray(size_t n, int arr[n][n]){
@@ -72,7 +68,7 @@ void fillArray(size_t n, int arr[n][n]){
 void displayArray(size_t n, int arr[n][n]){
     for(int i = 0;i < n;i++){
         for(int j = 0;j < n;j++){
-            printf("%d %p\n", arr[i][j], &arr[i][j]);
+            printf("%d ", arr[i][j]);
         }
         printf("\n");
     }    
@@ -84,16 +80,7 @@ int main(){
    fillArray(N, A);
    fillArray(N, B);
 
-   displayArray(N, A);
-   printf("\n");
-
-   /*
-   matrix_multiply_iterative(N, A, B, C);
-
-   displayArray(N, C);
-   printf("\n"); 
-   */
-   matrix_multiply_recursive(N, A[0], B[0], D[0]);
-
-   displayArray(N, D);
+   measure_runtime_us(matrix_multiply_iterative, N, A, B, C);
+   
+   measure_runtime_us(matrix_multiply_recursive,N, A[0], B[0], D[0]);
 }
