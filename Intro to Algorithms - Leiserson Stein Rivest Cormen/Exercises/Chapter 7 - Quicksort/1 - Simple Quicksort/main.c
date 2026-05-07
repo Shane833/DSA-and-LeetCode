@@ -18,7 +18,7 @@ static inline void swap(int *array, int i, int j){
 
 static inline int isSorted(int *array, size_t n, Compare cmp){
     for(int i = 0;i < n - 1;i++){
-        if(cmp(array[i], array[i+1]) > 0) return 1; // If the
+        if(cmp(array[i], array[i+1]) > 0) return 1; 
     }
 
     return 0;
@@ -75,10 +75,12 @@ void display(int A[], size_t n){
 }
 
 int main(){
-    int arr[] = {2, 8, 7, 1, 3, 5, 6};
-    //int arr[] = {100, 20, 33, 469, 5090, 6};
+    //int arr[] = {2, 8, 7, 1, 3, 5, 6};
+    int arr[] = {100, 20, 33, 469, 5090, 6};
     display(arr, sizeof(arr)/sizeof(arr[0]));
-    quicksort(arr, 0, sizeof(arr)/sizeof(arr[0]) - 1, (Compare)descOrder);
-    if(isSorted(arr,sizeof(arr)/sizeof(arr[0]), (Compare)descOrder) == 0)
+
+    quicksort(arr, 0, sizeof(arr)/sizeof(arr[0]) - 1, (Compare)ascOrder);
+
+    if(isSorted(arr,sizeof(arr)/sizeof(arr[0]), (Compare)ascOrder) == 0)
     display(arr, sizeof(arr)/sizeof(arr[0]));
 }
