@@ -76,7 +76,7 @@ unsigned random(unsigned start, unsigned end){
     */
     unsigned rand_num = rand() % nums_in_range;
 
-    return start + rand_num; // or equivalent end - rand_num
+    return start + rand_num; // or equivalent is end - rand_num
 }
 
 /* Uniformely distributed numbers

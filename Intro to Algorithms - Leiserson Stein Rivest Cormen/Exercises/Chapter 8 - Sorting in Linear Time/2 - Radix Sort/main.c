@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 void display(int A[], size_t n){
     for(int i = 0;i < n;i++){
@@ -17,18 +18,19 @@ int getMax(int A[], size_t n){
     return max;
 }
 
-int countingSortUtil(int A[], size_t n, int k){
-    int B[n], C[k+1];
+int countingSortUtil(int A[], size_t n, int k, int i){
+    int B[n], C[k+1], num = 0;
 
     for(int i = 0;i <= k;i++){
        C[i] = 0; 
     }
 
     for(int j = 0;j < n;j++){
-        C[A[j]] = C[A[j]] + 1; // Generates a frequency histogram
-                               // i.e C[i] contains the count of
-                               // how many 'i' numbers are present
-                               // in the input
+        // Get the desired digit as per ith digit
+        num = A[j] / (int)pow(10, i-1);
+        num = num % 10; // We always mod by 10 to get the digit at ith place
+        C[num] = C[num] + 1; 
+                               
     }
 
     for(int i = 1;i <= k;i++){
@@ -41,10 +43,13 @@ int countingSortUtil(int A[], size_t n, int k){
     }
 
     for(int j = n - 1;j >= 0;j--){
-        C[A[j]] = C[A[j]] - 1; // First we convert the position into index
+        num = A[j] / (int)pow(10, i-1);
+        num = num % 10; 
+
+        C[num] = C[num] - 1; // First we convert the position into index
                                // This also helps when we have multiple elements
                                // with the same value which keeps them adjacent
-        B[C[A[j]]] = A[j]; 
+        B[C[num]] = A[j]; 
         
     }
 
@@ -54,15 +59,18 @@ int countingSortUtil(int A[], size_t n, int k){
     }
 }
 
-int countingSort(int A[], size_t n){
-    int k = getMax(A, n);
-    countingSortUtil(A, n, k);
+int radixSort(int A[], size_t n){
+    int d = 1 + log(getMax(A, n)); // get the digits in the largest element 
+    
+    for(int i = 1;i <= d;i++){
+        countingSortUtil(A, n, 9, i); // 0-9 digits henc the largest is always 9
+    }
 }
 
 int main(){
     
-    int arr[] = {5, 3, 6, 1, 7, 9};
-    countingSort(arr, sizeof arr/sizeof arr[0]);
+    int arr[] = {58, 301, 60, 1, 77, 9};
+    radixSort(arr, sizeof arr/sizeof arr[0]);
 
     display(arr, sizeof arr/sizeof arr[0]);
     return 0;
