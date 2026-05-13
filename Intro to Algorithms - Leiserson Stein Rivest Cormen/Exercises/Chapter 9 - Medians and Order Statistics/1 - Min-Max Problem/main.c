@@ -84,6 +84,30 @@ void min_max_book(int A[], size_t n, int result[2]){
    // So this is equivalent working on n/2
 }
 
+void min_max_DandC(int A[], int left, int right, int *min, int *max){
+    if(left == right){
+        *min = *max = A[left];
+    }
+    else if(left == right - 1){ // 2 elements i.e. works on pairs
+        if(A[left] > A[right]){
+            if(A[left] > *max) *max = A[left];
+            if(A[right] < *min) *min = A[right];
+        }else{
+            if(A[left] < *min) *min = A[left];
+            if(A[right] > *max) *max = A[right];
+        }
+    }else{ // more than 2 hence divide the problem
+        int mid = (left + right) / 2;
+        int min1 = A[mid+1], max1 = A[mid+1];
+
+        min_max_DandC(A, left, mid, min, max);
+        min_max_DandC(A, mid + 1, right, &min1, &max1);
+
+        if(min1 < *min) *min = min1;
+        if(max1 > *max) *max = max1;
+    }        
+}
+
 int main(){
     int arr[] = {4, 6, 2, 8};//, 1, 4, 9, 0, 50};
     int result[2] = { 0 };
@@ -94,5 +118,11 @@ int main(){
     printf("min : %d max : %d\n", result[0], result[1]);
     min_max_book(arr, sizeof(arr)/sizeof(arr[0]), result);
     printf("min : %d max : %d\n", result[0], result[1]);
+
+    int min = arr[0], max = arr[0]; 
+    min_max_DandC(arr, 0, sizeof(arr)/sizeof(arr[0]) - 1, &min, &max);
+    printf("min : %d max : %d\n", min, max);
+    
+
     return 0;
 }
