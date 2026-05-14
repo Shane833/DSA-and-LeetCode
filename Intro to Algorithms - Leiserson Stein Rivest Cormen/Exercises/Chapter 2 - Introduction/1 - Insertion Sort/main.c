@@ -3,8 +3,9 @@
 void insertionSort(size_t n, int A[n]){
     int i = 0, j = 0, key = 0;
     for(i = 1;i < n;i++){
-        key = A[i];
-        j = i - 1;
+        key = A[i]; // We need to store key before hand
+        j = i - 1;  // as it will get overwritten when we do
+                    // A[j+1] = A[j], as in the start j+1 = i
         while(j >= 0 && key < A[j]){
             // Keep on shifting the elements to the right
             A[j+1] = A[j];

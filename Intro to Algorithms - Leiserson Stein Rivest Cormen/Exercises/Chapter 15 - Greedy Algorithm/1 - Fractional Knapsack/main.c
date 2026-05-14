@@ -71,4 +71,6 @@ int main(){
     double max_profit = fractionalKnapsack(sizeof profit/ sizeof profit[0], profit, weight, knapsack);
 
     printf("Max Profit : %0.2lf\n", max_profit);
+    
+    return 0;
 }
