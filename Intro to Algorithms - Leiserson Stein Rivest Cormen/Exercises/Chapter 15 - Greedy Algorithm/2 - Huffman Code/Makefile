@@ -1,5 +1,5 @@
-CFLAGS = -Wall -ggdb -O2 -I. -DNDEBUG
-SRC = $(wildcard *.c)
+CFLAGS = -Wall -ggdb -O2 -Isrc -DNDEBUG
+SRC = $(wildcard src/*.c)
 TARGET=main
 
 all: 

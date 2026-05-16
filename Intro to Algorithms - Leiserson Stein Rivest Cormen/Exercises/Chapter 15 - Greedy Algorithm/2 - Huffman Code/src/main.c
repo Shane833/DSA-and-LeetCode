@@ -11,10 +11,13 @@ typedef struct HuffmanNode HuffmanNode;
 
 typedef struct HuffmanNode{
     size_t freq;
-    char c;
+    unsigned char c;
     HuffmanNode *left;
     HuffmanNode *right;
 }HuffmanNode;
+
+// Destroy Callback
+typedef void (*HuffmanNode_destroy_cb) (HuffmanNode *node);
 
 HuffmanNode *createHuffmanNode(char c, size_t freq){
     HuffmanNode *temp = (HuffmanNode*)malloc(sizeof(HuffmanNode));
@@ -66,13 +69,23 @@ error:
     return NULL;
 }
 
-/*
-void HuffmanNodeDestroy(HuffamnNode *node){
+void freeNode(HuffmanNode *node){
     if(node){
         free(node);
     }
 }
-*/
+
+// I can destroy the nodes in post order
+// so that the child are freed first and then
+// their parents
+void Huffman_Destroy(HuffmanNode *node, HuffmanNode_destroy_cb destroy){
+    if(!node) return;
+
+    Huffman_Destroy(node->left, destroy);
+    Huffman_Destroy(node->right, destroy);
+    
+    destroy(node);
+}
 
 HuffmanNode *Huffman(PQueue *q){
     size_t n = PQueue_Size(q);
@@ -90,7 +103,7 @@ HuffmanNode *Huffman(PQueue *q){
         node->freq = a->freq + b->freq;
 
         PQueue_Enqueue(q, node); // Merging two smallest nodes at a time
-                                 // and inserting them back into the mind heap
+                                 // and inserting them back into the min heap
     }
 
     return (HuffmanNode *)PQueue_Dequeue(q); // in the end only the root remains
@@ -101,7 +114,7 @@ error:
 void preOrder(HuffmanNode *node, bstring code){
     if(node == NULL) return;
 
-    if(!node->left && !node->right){
+    if(!node->left && !node->right){ // Stopping at the leaves
         struct tagbstring test = bsStatic(""); // allocating on the stack
         if(bstrcmp(code, &test) == 0){
             bconchar(code, '0');
@@ -127,6 +140,7 @@ void preOrder(HuffmanNode *node, bstring code){
 }
 
 
+
 int main(){
     // Create the initial min heap of huffman nodes
     PQueue *q = createMinHeapFromString("aabbbcdeee");
@@ -136,19 +150,22 @@ int main(){
     HuffmanNode *root = Huffman(q);
     check(root != NULL, "Failed to create Huffman Tree!");
 
-
     // Displaying codes for each character
     bstring code = bfromcstr("");
     check(code != NULL, "Failed to create our initial code string!");
-
     preOrder(root, code);
     
     // Cleanup
     bdestroy(code);
     code = NULL;
+    
+    PQueue_ClearDestroy(q);
+    q = NULL;
+
+    Huffman_Destroy(root, (HuffmanNode_destroy_cb)freeNode);
+    root = NULL;
 
     return 0;
 error:
     return EXIT_FAILURE;
 }
-

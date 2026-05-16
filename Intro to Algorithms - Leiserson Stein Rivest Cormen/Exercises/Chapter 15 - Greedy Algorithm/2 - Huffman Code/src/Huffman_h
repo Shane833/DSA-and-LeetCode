@@ -1,0 +1,29 @@
+#ifndef huffman_h
+#define huffman_h
+
+#include <hashmap.h>
+#include <dbg.h>
+
+typedef struct HuffmanNode HuffmanNode;
+
+typedef struct HuffmanNode{
+    size_t freq;
+    unsigned char c;
+    HuffmanNode *left;
+    HuffmanNode *right;
+}HuffmanNode;
+
+typedef struct HuffmanTree{
+    HuffmanNode *root;
+    Hashmap *codes;
+}HuffmanTree;
+
+// Destroy Callback
+typedef void (*HuffmanNode_traverseCallback) (HuffmanNode *node);
+
+HuffmanTree *HuffmanTree_create(const unsigned char *msg);
+int HuffmanTree_writeEncodedData(HuffmanTree *tree, const char *filepath, const char *mode);
+int HuffmanTree_readEncodedData(HuffmanTree *tree, const char *filepath);
+void HuffmanTree_destroy(HuffmanTree *tree, HuffmanNode_traverseCallback destroy);
+
+#endif

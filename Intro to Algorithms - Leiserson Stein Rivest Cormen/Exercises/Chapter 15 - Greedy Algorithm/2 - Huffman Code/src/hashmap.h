@@ -30,11 +30,11 @@ typedef struct HashmapNode{
 
 typedef int (*Hashmap_traverse_cb) (HashmapNode* node);
 
-Hashmap * Hashmap_create(Hashmap_compare, Hashmap_hash); 
+Hashmap * Hashmap_create(Hashmap_compare compare, Hashmap_hash hash); 
 
-Hashmap * Hashmap_createStatic(Hashmap_compare, Hashmap_hash, size_t);
+Hashmap * Hashmap_createStatic(Hashmap_compare compare, Hashmap_hash hash, size_t bucket_size);
 
-Hashmap * Hashmap_createDynamic(Hashmap_compare, Hashmap_hash, size_t, double);
+Hashmap * Hashmap_createDynamic(Hashmap_compare compare, Hashmap_hash hash, size_t bucket_size, double load_factor);
 
 void Hashmap_destroy(Hashmap* map);
 

@@ -190,7 +190,7 @@ void PQueue_Destroy(PQueue* q)
 	}
 }
 
-void  PQueue_ClearDestroy(PQueue* q)
+void PQueue_ClearDestroy(PQueue* q)
 {
 	if(q){
 		if(q->array){

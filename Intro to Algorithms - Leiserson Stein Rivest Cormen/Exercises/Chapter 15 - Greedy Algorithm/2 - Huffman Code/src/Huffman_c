@@ -1,0 +1,94 @@
+#include <Huffman.h>
+
+static HuffmanNode *HuffmanNode_create(char c, size_t freq){
+    HuffmanNode *node = (HuffmanNode*)malloc(sizeof(HuffmanNode));
+    check(node != NULL, "Failed to create HuffmanNode!");
+
+    node->c = c;
+    node->freq = freq;
+    node->left = NULL;
+    node->right = NULL;
+
+    return node;
+error:
+    return NULL;
+}
+
+// Compare function for PQueue
+static int keyCompare(const HuffmanNode *a, const HuffmanNode *b){
+    return a->freq - b->freq;
+}
+
+static PQueue *Huffman_createMinHeapFromString(const unsigned char *msg){
+    int map[UCHAR_MAX] = { 0 };
+    for(int i = 0;i < strlen(msg);i++){
+        map[msg[i]]++; // counter
+    } 
+    // Getting the count of unique chars
+    size_t count = 0;
+    for(int i = 0;i < UCHAR_MAX;i++){
+        if(map[i] != 0){
+            count++;
+        }
+    }
+    // Create a new PQueue
+    PQueue *q = PQueue_Create(count, (PQueue_Compare)keyCompare);
+    check(q != NULL, "Failed to create PQueue!"); 
+    
+    // Creating a min heap from these nodes
+    for(int i = 0;i < UCHAR_MAX;i++){
+        if(map[i] != 0){
+            HuffmanNode *node = createHuffmanNode(i, map[i]);
+            check(node != NULL, "Failed to create HuffmanNode!");
+            
+            PQueue_Enqueue(q, node);
+        }
+    }
+
+    return q;
+error:
+    return NULL;
+}
+
+static void HuffmanTree_getCodesFromHeap(Hashmap *map, HuffmanNode *root){
+    
+}
+
+
+
+HuffmanTree *HuffmanTree_create(const unsigned char *msg){
+    PQueue *q = Huffman_createMinHeapFromString(msg);
+    check(q != NULL, "Failed to create min heap from string!");
+
+    size_t n = PQueue_Size(q);
+    // for n items we need n - 1 merge operations 
+    for(int i = 0;i < n - 1;i++){
+        HuffmanNode *node = createHuffmanNode('\0', 0);
+        check(node != NULL, "Failed to create HuffmanNode!");
+
+        HuffmanNode *a = (HuffmanNode *)PQueue_Dequeue(q);
+        HuffmanNode *b = (HuffmanNode *)PQueue_Dequeue(q);
+
+        node->left = a;
+        node->right = b;
+
+        node->freq = a->freq + b->freq;
+
+        PQueue_Enqueue(q, node); // Merging two smallest nodes at a time
+                                 // and inserting them back into the min heap
+    }
+    
+    HuffmanTree *tree (HuffmanTree *)malloc(sizeof(HuffmanTree));
+    check(tree != NULL, "Failed to create the Huffman Tree");
+
+    tree->root = (HuffmanNode *)PQueue_Dequeue(q); // in the end only the root remains
+    PQueue_ClearDestroy(q);
+    q = NULL;
+
+    Hashmap *map = Hashmap_createStatic(NULL, NULL, n);
+    check(map != NULL, "Failed to create Hashmap!");
+    
+    
+error:
+    return NULL;
+}
