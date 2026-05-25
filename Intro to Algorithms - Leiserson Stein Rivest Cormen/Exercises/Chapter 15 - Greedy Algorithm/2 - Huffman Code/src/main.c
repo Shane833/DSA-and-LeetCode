@@ -139,11 +139,10 @@ void preOrder(HuffmanNode *node, bstring code){
     code_r = NULL;
 }
 
-
-
 int main(){
     // Create the initial min heap of huffman nodes
-    PQueue *q = createMinHeapFromString("aabbbcdeee");
+    //PQueue *q = createMinHeapFromString("aabbbcdeee");
+    PQueue *q = createMinHeapFromString("Luke I'm your father!");
     check(q != NULL, "Failed to create Min Heap from given String!");
 
     // Generating the huffman tree
