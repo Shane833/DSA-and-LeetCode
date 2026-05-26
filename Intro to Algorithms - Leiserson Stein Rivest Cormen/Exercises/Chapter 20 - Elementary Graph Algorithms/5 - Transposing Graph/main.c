@@ -39,7 +39,9 @@ int main(){
 
    printGraph(graph1);
    printf("\n");
-
+    
+   // Solution 1 : In order to tranpose graph we can tranpose
+   // the matrix and then create a graph from that
    transposeMatrix(sizeof g / sizeof g[0], g);
    
    Graph *graph2 = Graph_create(sizeof g / sizeof g[0], g);
@@ -48,11 +50,34 @@ int main(){
    printGraph(graph2);
    printf("\n");
 
+   // Solution 2 : Or we can create a new graph from existing
+   // graph by taking the tranpose from the adjacency list of each
+   // of the node
+
+   Graph *graph3 = Graph_transpose(graph1);
+   check(graph3 != NULL, "Failed to create our graph!");
+
+   printGraph(graph3);
+   printf("\n");
+
+   // Transposing again should give us the original graph
+   Graph *graph4 = Graph_transpose(graph3);
+   check(graph4 != NULL, "Failed to create our graph!");
+
+   printGraph(graph4);
+   printf("\n");
+
    Graph_destroy(graph1);
    graph1 = NULL;
 
    Graph_destroy(graph2);
    graph2 = NULL;
+
+   Graph_destroy(graph3);
+   graph3 = NULL;
+
+   Graph_destroy(graph4);
+   graph4 = NULL;
 
    closeLog();
 

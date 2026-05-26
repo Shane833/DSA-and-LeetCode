@@ -28,11 +28,44 @@ error:
     return NULL;
 }
 
-Graph *Graph_tranpose(Graph *g){
+Graph *Graph_transpose(Graph *g){
     Graph *new_graph = (Graph *)malloc(sizeof(Graph));
     check(new_graph != NULL, "Failed to create graph!");
 
     new_graph->vertices = DArray_create(sizeof(List), Graph_count(g));
+    check(new_graph->vertices != NULL, "Failed to create vertex array!");
+
+    // Adding linked lists for each entry of the darray
+    for(int i = 0;i < Graph_count(g);i++){
+        List *node_list = (List *)List_create();
+        check(node_list != NULL, "Failed to create new list!");
+        check(DArray_push(new_graph->vertices, node_list) == 0, "Failed to push node list in darray!");
+    }
+    
+    // Now transposing the graph
+    for(int i = 0;i < Graph_count(g);i++){
+        // For each vertex in the original graph we obtain its
+        // adjacency list
+        List *node_list = (List *)DArray_get(g->vertices, i);
+        LIST_FOREACH(node_list, first, next, cur){
+            // For each node in its adjacency list we push the
+            // current vertex as the adjacent node in the list
+            // of adjacent nodes of our current vertex
+            int node_idx = *(int *)cur->value - 1;
+            
+            List *l = (List *)DArray_get(new_graph->vertices, node_idx);
+            
+            int *node_num = (int *)malloc(sizeof(int));
+            check(node_num != NULL, "Failed to create node int");
+            *node_num = i + 1;
+
+            List_push(l, node_num);
+        }
+    }
+    
+    return new_graph;
+error:
+    return NULL;
 }
 
 void Graph_destroy(Graph *g){

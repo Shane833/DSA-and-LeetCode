@@ -21,8 +21,6 @@
 !_TAG_KIND_DESCRIPTION!C	t,typedef	/typedefs/
 !_TAG_KIND_DESCRIPTION!C	u,union	/union names/
 !_TAG_KIND_DESCRIPTION!C	v,variable	/variable definitions/
-!_TAG_KIND_DESCRIPTION!C++	M,module	/modules/
-!_TAG_KIND_DESCRIPTION!C++	P,partition	/partitions/
 !_TAG_KIND_DESCRIPTION!C++	c,class	/classes/
 !_TAG_KIND_DESCRIPTION!C++	d,macro	/macro definitions/
 !_TAG_KIND_DESCRIPTION!C++	e,enumerator	/enumerators (values inside an enumeration)/
@@ -41,29 +39,24 @@
 !_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
-!_TAG_OUTPUT_VERSION	1.1	/current.age/
+!_TAG_OUTPUT_VERSION	0.0	/current.age/
 !_TAG_PARSER_VERSION!C	1.1	/current.age/
-!_TAG_PARSER_VERSION!C++	2.2	/current.age/
-!_TAG_PARSER_VERSION!Make	1.1	/current.age/
+!_TAG_PARSER_VERSION!C++	1.1	/current.age/
+!_TAG_PARSER_VERSION!Make	0.0	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	D:/Shane/Data Structures and Algorithm/Github/DSA-and-LeetCode/Intro to Algorithms - Leiserson Stein Rivest Cormen/Exercises/Chapter 20 - Elementary Graph Algorithms/3 - Depth First Search/	//
+!_TAG_PROC_CWD	E:/Shane/DSA and Leetcode/Github/DSA-and-LeetCode/Intro to Algorithms - Leiserson Stein Rivest Cormen/Exercises/Chapter 20 - Elementary Graph Algorithms/5 - Transposing Graph/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	6.2.1	//
+!_TAG_PROGRAM_VERSION	6.1.0	/v6.1.0/
 !_TAG_ROLE_DESCRIPTION!C!function	foreigndecl	/declared in foreign languages/
 !_TAG_ROLE_DESCRIPTION!C!header	local	/local header/
 !_TAG_ROLE_DESCRIPTION!C!header	system	/system header/
 !_TAG_ROLE_DESCRIPTION!C!macro	undef	/undefined/
 !_TAG_ROLE_DESCRIPTION!C!struct	foreigndecl	/declared in foreign languages/
-!_TAG_ROLE_DESCRIPTION!C++!header	exported	/exported with "exported imported ..."/
-!_TAG_ROLE_DESCRIPTION!C++!header	imported	/imported with "imported ..."/
 !_TAG_ROLE_DESCRIPTION!C++!header	local	/local header/
 !_TAG_ROLE_DESCRIPTION!C++!header	system	/system header/
 !_TAG_ROLE_DESCRIPTION!C++!macro	undef	/undefined/
-!_TAG_ROLE_DESCRIPTION!C++!module	imported	/imported with "imported ..."/
-!_TAG_ROLE_DESCRIPTION!C++!module	partOwner	/used for specifying a partition/
-!_TAG_ROLE_DESCRIPTION!C++!partition	imported	/imported with "imported ..."/
 !_TAG_ROLE_DESCRIPTION!Make!makefile	included	/included/
 !_TAG_ROLE_DESCRIPTION!Make!makefile	optional	/optionally included/
 BLACK	./Graph_algos.c	/^        BLACK$/;"	e	enum:Color	file:
@@ -95,10 +88,13 @@ DFS_visit	./Graph_algos.c	/^static void DFS_visit(Graph *g, int vertex_dtime[], 
 GRAY	./Graph_algos.c	/^        GRAY,$/;"	e	enum:Color	file:
 Graph	./Graph.h	/^}Graph;$/;"	t	typeref:struct:__anonaafc536a0108
 Graph_BFS	./Graph_algos.c	/^void Graph_BFS(Graph *g, int src_vertex){$/;"	f	typeref:typename:void
-Graph_DFS	./Graph_algos.c	/^void Graph_DFS(Graph *g){$/;"	f	typeref:typename:void
+Graph_DFS	./Graph_algos.c	/^void Graph_DFS(Graph *g, int vertex_dtime[], int vertex_ftime[]){$/;"	f	typeref:typename:void
+Graph_SSComponents	./Graph_algos.c	/^void Graph_SSComponents(Graph *g){$/;"	f	typeref:typename:void
+Graph_TopologicalSort	./Graph_algos.c	/^void Graph_TopologicalSort(Graph *g, List *result){$/;"	f	typeref:typename:void
 Graph_count	./Graph.h	/^#define Graph_count(/;"	d
 Graph_create	./Graph.c	/^Graph *Graph_create(size_t n, int nodes[n][n]){$/;"	f	typeref:typename:Graph *
 Graph_destroy	./Graph.c	/^void Graph_destroy(Graph *g){$/;"	f	typeref:typename:void
+Graph_transpose	./Graph.c	/^Graph *Graph_transpose(Graph *g){$/;"	f	typeref:typename:Graph *
 LIST_FOREACH	./list.h	/^#define LIST_FOREACH(/;"	d
 List	./list.h	/^typedef struct List{$/;"	s
 List	./list.h	/^}List;$/;"	t	typeref:struct:List
@@ -158,9 +154,11 @@ main	./main.c	/^int main(){$/;"	f	typeref:typename:int
 max	./darray.h	/^	int max; \/\/ holds the maximum array size and then flags to grow it once the limit is reached$/;"	m	struct:DArray	typeref:typename:int
 next	./list.h	/^	struct ListNode* next; \/\/ pointer to the next node$/;"	m	struct:ListNode	typeref:struct:ListNode *
 prev	./list.h	/^	struct ListNode* prev; \/\/ pointer to the previous node$/;"	m	struct:ListNode	typeref:struct:ListNode *
+printGraph	./main.c	/^void printGraph(Graph *g){$/;"	f	typeref:typename:void
 sentinel	./dbg.h	/^#define sentinel(/;"	d
 str	./dbg.c	/^#define str(/;"	d	file:
 time	./Graph_algos.c	/^static int time = 0;$/;"	v	typeref:typename:int	file:
+transposeMatrix	./main.c	/^void transposeMatrix(size_t n, int graph[n][n]){$/;"	f	typeref:typename:void
 value	./list.h	/^	void* value; \/\/ This is the value that the node will hold, it is declared void for used for a/;"	m	struct:ListNode	typeref:typename:void *
 vertices	./Graph.h	/^    DArray *vertices;$/;"	m	struct:__anonaafc536a0108	typeref:typename:DArray *
 xstr	./dbg.c	/^#define xstr(/;"	d	file:
