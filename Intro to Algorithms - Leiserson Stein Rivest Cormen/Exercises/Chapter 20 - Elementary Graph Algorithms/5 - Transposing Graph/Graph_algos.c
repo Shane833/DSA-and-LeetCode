@@ -120,11 +120,9 @@ static void DFS_visit(Graph *g, int vertex_dtime[], int vertex_ftime[], int vert
     vertex_color[src_idx] = BLACK;
 }
 
-void Graph_DFS(Graph *g){
+void Graph_DFS(Graph *g, int vertex_dtime[], int vertex_ftime[]){
     // Declaring the attribute array for each vertex
     const int vertex_count = Graph_count(g);
-    int vertex_dtime[vertex_count];
-    int vertex_ftime[vertex_count];
     int vertex_color[vertex_count];
     int vertex_parent[vertex_count];
 
@@ -140,14 +138,47 @@ void Graph_DFS(Graph *g){
     for(int i = 0;i < Graph_count(g);i++){
         if(vertex_color[i] == WHITE){
             DFS_visit(g, vertex_dtime, vertex_ftime, vertex_color, vertex_parent, i+1); // Recursively visiting all the adjacent
-                               // nodes of 'i+1'th vertex
+                                                                                       // nodes of 'i+1'th vertex
         }
     }
+    printf("\n");
+}
 
-    printf("\nDiscovery and Finishing times : \n");
-    // Displaying discovery and finishing time for each vertex
-    for(int i = 0;i < vertex_count;i++){
-        printf("%d : (%d, %d)\n", i+1, vertex_dtime[i], vertex_ftime[i]);
-    }
+void Graph_TopologicalSort(Graph *g, List *result){
+   int v_dtime[Graph_count(g)]; 
+   int v_ftime[Graph_count(g)]; 
 
+   Graph_DFS(g, v_dtime, v_ftime); // Calling DFS on the graph
+
+   // Sort in descending order of finishing times
+   int vertices[Graph_count(g)];
+   for(int i = 0;i < Graph_count(g);i++){
+       vertices[i] = i + 1;
+   }
+    
+   // Insertion Sort
+   for(int i = 1;i < Graph_count(g);i++){
+        int key = v_ftime[i];
+        int key2 = vertices[i];
+        int j = i - 1;
+        while(j >= 0 && key < v_ftime[j]){
+            v_ftime[j+1] = v_ftime[j]; // Shift the elements to make space
+            vertices[j+1] = vertices[j];
+            j--;
+        }
+        // Now simply place the element at its correct place
+        v_ftime[j+1] = key;
+        vertices[j+1] = key2;
+   }
+   
+   // Inserting these into a linked list
+   for(int i = 0;i < Graph_count(g);i++){
+       int *node = (int *)malloc(sizeof(int));
+       *node = vertices[i];
+       List_unshift(result, node); // Inserting at the beginning of the list 
+   }
+}
+
+void Graph_SSComponents(Graph *g){
+    
 }

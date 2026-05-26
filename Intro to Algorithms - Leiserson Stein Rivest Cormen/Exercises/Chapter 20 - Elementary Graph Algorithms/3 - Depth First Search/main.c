@@ -24,11 +24,13 @@ int main(){
     }   
 
    printf("BFS : ");
-   Graph_BFS(graph, 3);
+   Graph_BFS(graph, 3); // If a node is not reachable from a src
+                        // it won't show up in its BFS path
    printf("\n");
 
    printf("DFS : ");
-   Graph_DFS(graph);
+   Graph_DFS(graph); // DFS will create a DFS forest based on the various
+                     // discovery and finishing times
    printf("\n");
 
    Graph_destroy(graph);
