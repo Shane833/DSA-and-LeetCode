@@ -21,6 +21,8 @@
 !_TAG_KIND_DESCRIPTION!C	t,typedef	/typedefs/
 !_TAG_KIND_DESCRIPTION!C	u,union	/union names/
 !_TAG_KIND_DESCRIPTION!C	v,variable	/variable definitions/
+!_TAG_KIND_DESCRIPTION!C++	M,module	/modules/
+!_TAG_KIND_DESCRIPTION!C++	P,partition	/partitions/
 !_TAG_KIND_DESCRIPTION!C++	c,class	/classes/
 !_TAG_KIND_DESCRIPTION!C++	d,macro	/macro definitions/
 !_TAG_KIND_DESCRIPTION!C++	e,enumerator	/enumerators (values inside an enumeration)/
@@ -39,29 +41,35 @@
 !_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
-!_TAG_OUTPUT_VERSION	0.0	/current.age/
+!_TAG_OUTPUT_VERSION	1.1	/current.age/
 !_TAG_PARSER_VERSION!C	1.1	/current.age/
-!_TAG_PARSER_VERSION!C++	1.1	/current.age/
-!_TAG_PARSER_VERSION!Make	0.0	/current.age/
+!_TAG_PARSER_VERSION!C++	2.2	/current.age/
+!_TAG_PARSER_VERSION!Make	1.1	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	E:/Shane/DSA and Leetcode/Github/DSA-and-LeetCode/Intro to Algorithms - Leiserson Stein Rivest Cormen/Exercises/Chapter 20 - Elementary Graph Algorithms/5 - Transposing Graph/	//
+!_TAG_PROC_CWD	D:/Shane/Data Structures and Algorithm/Github/DSA-and-LeetCode/Intro to Algorithms - Leiserson Stein Rivest Cormen/Exercises/Chapter 20 - Elementary Graph Algorithms/6 - Strongly Connected Components/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	6.1.0	/v6.1.0/
+!_TAG_PROGRAM_VERSION	6.2.1	//
 !_TAG_ROLE_DESCRIPTION!C!function	foreigndecl	/declared in foreign languages/
 !_TAG_ROLE_DESCRIPTION!C!header	local	/local header/
 !_TAG_ROLE_DESCRIPTION!C!header	system	/system header/
 !_TAG_ROLE_DESCRIPTION!C!macro	undef	/undefined/
 !_TAG_ROLE_DESCRIPTION!C!struct	foreigndecl	/declared in foreign languages/
+!_TAG_ROLE_DESCRIPTION!C++!header	exported	/exported with "exported imported ..."/
+!_TAG_ROLE_DESCRIPTION!C++!header	imported	/imported with "imported ..."/
 !_TAG_ROLE_DESCRIPTION!C++!header	local	/local header/
 !_TAG_ROLE_DESCRIPTION!C++!header	system	/system header/
 !_TAG_ROLE_DESCRIPTION!C++!macro	undef	/undefined/
+!_TAG_ROLE_DESCRIPTION!C++!module	imported	/imported with "imported ..."/
+!_TAG_ROLE_DESCRIPTION!C++!module	partOwner	/used for specifying a partition/
+!_TAG_ROLE_DESCRIPTION!C++!partition	imported	/imported with "imported ..."/
 !_TAG_ROLE_DESCRIPTION!Make!makefile	included	/included/
 !_TAG_ROLE_DESCRIPTION!Make!makefile	optional	/optionally included/
 BLACK	./Graph_algos.c	/^        BLACK$/;"	e	enum:Color	file:
 CFLAGS	./Makefile	/^CFLAGS = -Wall -ggdb -O2 -I. -DNDEBUG $/;"	m
 Color	./Graph_algos.c	/^enum Color{$/;"	g	file:
+Compare	./Graph_algos.h	/^typedef int (*Compare) (int a, int b);$/;"	t	typeref:typename:int (*)(int a,int b)
 DArray	./darray.h	/^typedef struct DArray{$/;"	s
 DArray	./darray.h	/^}DArray;$/;"	t	typeref:struct:DArray
 DArray_clear	./darray.c	/^void DArray_clear(DArray* array)$/;"	f	typeref:typename:void
@@ -89,7 +97,8 @@ GRAY	./Graph_algos.c	/^        GRAY,$/;"	e	enum:Color	file:
 Graph	./Graph.h	/^}Graph;$/;"	t	typeref:struct:__anonaafc536a0108
 Graph_BFS	./Graph_algos.c	/^void Graph_BFS(Graph *g, int src_vertex){$/;"	f	typeref:typename:void
 Graph_DFS	./Graph_algos.c	/^void Graph_DFS(Graph *g, int vertex_dtime[], int vertex_ftime[]){$/;"	f	typeref:typename:void
-Graph_SSComponents	./Graph_algos.c	/^void Graph_SSComponents(Graph *g){$/;"	f	typeref:typename:void
+Graph_SSComponents	./Graph_algos.c	/^void Graph_SSComponents(Graph *g, int v_dtime[], int v_ftime[]){$/;"	f	typeref:typename:void
+Graph_SortVertices	./Graph_algos.c	/^void Graph_SortVertices(size_t n, int to_sort[n], int vertices[n], Compare cmp){$/;"	f	typeref:typename:void
 Graph_TopologicalSort	./Graph_algos.c	/^void Graph_TopologicalSort(Graph *g, List *result){$/;"	f	typeref:typename:void
 Graph_count	./Graph.h	/^#define Graph_count(/;"	d
 Graph_create	./Graph.c	/^Graph *Graph_create(size_t n, int nodes[n][n]){$/;"	f	typeref:typename:Graph *
@@ -127,6 +136,8 @@ WHITE	./Graph_algos.c	/^        WHITE,$/;"	e	enum:Color	file:
 _DArray_h	./darray.h	/^#define _DArray_h$/;"	d
 __anonaafc536a0108	./Graph.h	/^typedef struct{$/;"	s
 all	./Makefile	/^all: $/;"	t
+asc_order	./Graph_algos.c	/^static inline int asc_order(int a, int b){$/;"	f	typeref:typename:int	file:
+asc_order	./main.c	/^int asc_order(int a, int b){$/;"	f	typeref:typename:int
 check	./dbg.h	/^#define check(/;"	d
 check_debug	./dbg.h	/^#define check_debug(/;"	d
 check_mem	./dbg.h	/^#define check_mem(/;"	d
@@ -136,6 +147,7 @@ contents	./darray.h	/^	void** contents; \/\/ the data of the array itself will b
 count	./list.h	/^	int count; \/\/ This variable keeps track of the no. of nodes$/;"	m	struct:List	typeref:typename:int
 dbg_h	./dbg.h	/^#define dbg_h /;"	d
 debug	./dbg.h	/^    #define debug(/;"	d
+desc_order	./Graph_algos.c	/^static inline int desc_order(int a, int b){$/;"	f	typeref:typename:int	file:
 element_size	./darray.h	/^	size_t element_size; \/\/ fixed size of each element that it needs to store$/;"	m	struct:DArray	typeref:typename:size_t
 end	./darray.h	/^	int end; \/\/ maintains the end pointer, the point where insertion takes place$/;"	m	struct:DArray	typeref:typename:int
 expand_rate	./darray.h	/^	size_t expand_rate; \/\/ defines how much ammount you want to grow the array after its initial /;"	m	struct:DArray	typeref:typename:size_t

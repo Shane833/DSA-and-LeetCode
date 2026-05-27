@@ -222,7 +222,8 @@ void Graph_SSComponents(Graph *g, int v_dtime[], int v_ftime[]){
     time = 0; // Setting global time to be zero
     
     for(int i = 0;i < Graph_count(g);i++){
-        if(vertex_color[vertices[i] - 1] == WHITE){
+        int vertex_idx = vertices[i] - 1;
+        if(vertex_color[vertex_idx] == WHITE){
             DFS_visit(t, v_dtime, v_ftime, vertex_color, vertex_parent, vertices[i]); 
               // Recursively visiting all the adjacent of the given vertex            
         }       
@@ -231,5 +232,4 @@ void Graph_SSComponents(Graph *g, int v_dtime[], int v_ftime[]){
 
     Graph_destroy(t);
     t = NULL;
-
 }
