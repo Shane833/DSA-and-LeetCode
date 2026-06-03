@@ -1,4 +1,4 @@
-CFLAGS = -Wall -ggdb -O2 -I. -DNDEBUG 
+CFLAGS = -Wall -ggdb -O2 -I. -std=c23 -fsanitize=address -DNDEBUG 
 SRC = $(wildcard *.c)
 TARGET=main
 
