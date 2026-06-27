@@ -25,6 +25,7 @@ static inline int isSorted(int *array, size_t n, Compare cmp){
 }
 
 int lomutoPartition(int A[], int left, int right, Compare cmp){
+    /*
     int x = A[right]; // choosing the right most element to be the pivot
     int i = left;
     int j = left;
@@ -40,6 +41,22 @@ int lomutoPartition(int A[], int left, int right, Compare cmp){
                    // bcz at the end of the loop j = right
 
     return i;
+    */
+    // Using first element as the pivot
+    int pivot = A[left];
+    int i = left + 1;
+    int j = left + 1;
+
+    for(;j <= right;j++){
+        if(cmp(A[j], pivot) <= 0){ 
+            swap(A, i, j); 
+            i++;
+        }
+    }
+
+    swap(A, i - 1, left);  
+    
+    return i - 1;
 }
 
 int hoarePartition(int A[], int left, int right, Compare cmp){
@@ -76,7 +93,8 @@ void display(int A[], size_t n){
 
 int main(){
     //int arr[] = {2, 8, 7, 1, 3, 5, 6};
-    int arr[] = {100, 20, 33, 469, 5090, 6};
+    //int arr[] = {100, 20, 33, 469, 5090, 6};
+    int arr[] = {25, 8, 7, 9, 38, 40, 20, 50, 47};
     display(arr, sizeof(arr)/sizeof(arr[0]));
 
     quicksort(arr, 0, sizeof(arr)/sizeof(arr[0]) - 1, (Compare)ascOrder);
